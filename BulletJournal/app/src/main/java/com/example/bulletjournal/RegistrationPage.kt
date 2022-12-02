@@ -52,9 +52,9 @@ class RegistrationPage : AppCompatActivity() {
         x.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(applicationContext, "Registration Successful", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this@RegistrationPage, LoginPage::class.java))
+                startActivity(Intent(this@RegistrationPage, MainPage::class.java))
             } else {
-                Toast.makeText(applicationContext, "Registration Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "User with this email already exist.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -83,7 +83,8 @@ class RegistrationPage : AppCompatActivity() {
         // Min 8 char, 1 letter, 1 number
         val passwordRegex = Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}\$")
 
-        if(passwordRegex.matches(password) && confirmPass.equals(password)){
+        // && confirmPass.equals(password)
+        if(passwordRegex.matches(password)){
             return passwordRegex.matches(password)
         }
         return false

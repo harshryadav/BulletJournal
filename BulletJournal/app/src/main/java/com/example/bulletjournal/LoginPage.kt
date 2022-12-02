@@ -46,7 +46,7 @@ class LoginPage : AppCompatActivity(){
                 if (task.isSuccessful) {
                     Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
                         .show()
-                    startActivity(Intent(this@LoginPage, HomePage::class.java))
+                    startActivity(Intent(this@LoginPage, MainPage::class.java))
                 } else {
                     Toast.makeText(
                         applicationContext,
