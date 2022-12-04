@@ -14,7 +14,7 @@ class MainPage: AppCompatActivity() {
         setContentView(R.layout.activity_homepage)
         initializeUI()
         btnJournal.setOnClickListener {
-            startActivity(Intent(this@MainPage, Journal::class.java))
+            startActivity(Intent(this@MainPage, Journal2::class.java))
         }
 
         btnGoals.setOnClickListener {
