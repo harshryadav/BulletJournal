@@ -3,6 +3,8 @@ package com.example.bulletjournal.view
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bulletjournal.Journal2
 import com.example.bulletjournal.R
 import com.example.bulletjournal.model.UserData
+
 
 class UserAdapter(val c: Context, val userList:ArrayList<UserData>):RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
@@ -28,6 +31,8 @@ class UserAdapter(val c: Context, val userList:ArrayList<UserData>):RecyclerView
         }
 
         private fun popupMenus(v:View) {
+
+            val j = Journal2()
             val position = userList[adapterPosition]
             val popupMenus = PopupMenu(c,v)
             popupMenus.inflate(R.menu.show_menu)
@@ -36,13 +41,24 @@ class UserAdapter(val c: Context, val userList:ArrayList<UserData>):RecyclerView
                     R.id.editText->{
                         val v = LayoutInflater.from(c).inflate(R.layout.add_item,null)
                         val name = v.findViewById<EditText>(R.id.userName)
+                        val date = v.findViewById<EditText>(R.id.date)
                         val number = v.findViewById<EditText>(R.id.userNo)
+
+                        name.setText(position.userName)
+                        date.setText(position.date1)
+                        number.setText(position.userMb)
+
+
                         AlertDialog.Builder(c)
                             .setView(v)
                             .setPositiveButton("Ok"){
                                     dialog,_->
+
                                 position.userName = name.text.toString()
                                 position.userMb = number.text.toString()
+                                position.date1 = date.text.toString()
+                                j.saveJournal(userList)
+
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited",Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -56,11 +72,14 @@ class UserAdapter(val c: Context, val userList:ArrayList<UserData>):RecyclerView
                             .create()
                             .show()
 
+
                         true
                     }
 
                     R.id.delete->{
                         /**set delete*/
+
+//
                         AlertDialog.Builder(c)
                             .setTitle("Delete")
                             .setIcon(R.drawable.ic_warning)
@@ -71,13 +90,16 @@ class UserAdapter(val c: Context, val userList:ArrayList<UserData>):RecyclerView
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Deleted this Information",Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
+                                j.saveJournal(userList)
                             }
                             .setNegativeButton("No"){
                                     dialog,_->
                                 dialog.dismiss()
                             }
+
                             .create()
                             .show()
+
 
                         true
                     }

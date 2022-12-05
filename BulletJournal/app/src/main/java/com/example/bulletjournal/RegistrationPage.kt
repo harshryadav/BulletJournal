@@ -12,7 +12,6 @@ class RegistrationPage : AppCompatActivity() {
     private lateinit var email:EditText
     private lateinit var password:EditText
     private lateinit var registerBtn: Button
-    private lateinit var confirmPass:EditText
     private lateinit var alreadyUser:Button
 
     private var mAuth: FirebaseAuth? = null
@@ -95,7 +94,6 @@ class RegistrationPage : AppCompatActivity() {
         email = findViewById(R.id.register_email)
         password = findViewById(R.id.register_password)
         registerBtn = findViewById(R.id.register_btn)
-        confirmPass = findViewById(R.id.confirm_password)
         alreadyUser = findViewById((R.id.have_ACC))
     }
 }
